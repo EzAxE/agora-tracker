@@ -744,10 +744,25 @@
         /* ========== AUTH ========== */
         .auth-bar {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px 16px 0;
+            padding: 14px 16px 10px;
+            gap: 8px;
+        }
+
+        .auth-bar .auth-row {
+            display: flex;
+            align-items: center;
             gap: 10px;
+        }
+
+        .auth-notice {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.4;
+            max-width: 300px;
         }
 
         .google-btn {
@@ -1499,19 +1514,25 @@ function renderAuthBar() {
         const name = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || '';
         const avatar = currentUser.user_metadata?.avatar_url || '';
         bar.innerHTML = `
-            <div class="user-pill">
-                ${avatar ? `<img src="${avatar}" alt="">` : ''}
-                <span>${name}</span>
-                <span class="sync-badge">SYNC</span>
+            <div class="auth-row">
+                <div class="user-pill">
+                    ${avatar ? `<img src="${avatar}" alt="">` : ''}
+                    <span>${name}</span>
+                    <span class="sync-badge">SYNC</span>
+                </div>
+                <button class="logout-btn" onclick="logoutUser()">D\u00e9connexion</button>
             </div>
-            <button class="logout-btn" onclick="logoutUser()">D\u00e9connexion</button>
         `;
     } else {
         bar.innerHTML = `
             <button class="google-btn" onclick="loginWithGoogle()">
                 ${GOOGLE_SVG}
-                Se connecter
+                Se connecter pour sauvegarder
             </button>
+            <div class="auth-notice">
+                La connexion sert uniquement \u00e0 sauvegarder tes donn\u00e9es.<br>
+                Je ne r\u00e9cup\u00e8re ni ton mail, ni aucune info. Z\u00e9ro. C'est gratuit, c'est cadeau.
+            </div>
         `;
     }
 }
