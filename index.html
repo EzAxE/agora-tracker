@@ -1064,7 +1064,7 @@ function switchTab(tab) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
     document.getElementById('pageHabits').classList.toggle('active', tab === 'habits');
     document.getElementById('pageTodo').classList.toggle('active', tab === 'todo');
-    document.getElementById('daysNav').style.display = tab === 'habits' ? 'flex' : 'none';
+    document.getElementById('daysNav').style.display = tab === 'habits' ? 'grid' : 'none';
     document.getElementById('statsRow').style.display = tab === 'habits' ? 'flex' : 'none';
 }
 
