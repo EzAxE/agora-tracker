@@ -31,6 +31,7 @@
             --text-muted: rgba(255,255,255,0.45);
             --font-body: 'DM Sans', sans-serif;
             --font-mono: 'Space Mono', monospace;
+            --safe-top: env(safe-area-inset-top, 0px);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
@@ -57,6 +58,7 @@
             align-items: center;
             justify-content: center;
             padding: 30px;
+            padding-top: calc(var(--safe-top) + 30px);
             text-align: center;
         }
 
@@ -132,7 +134,7 @@
         .app.hidden { display: none; }
 
         .app-header {
-            padding: 6px 20px 0;
+            padding: calc(var(--safe-top) + 8px) 20px 0;
             text-align: center;
         }
 
