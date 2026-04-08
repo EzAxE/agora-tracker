@@ -1143,7 +1143,7 @@ function renderHabits() {
                 </div>
                 <span class="habit-group-count">${done}/${g.habits.length}</span>
             </div>
-            ${g.habits.map(h => habitHTML(h, checked[h.id])).join('')}
+            ${g.habits.map(h => habitHTML(h, checked[h.id], !h.preset)).join('')}
         </div>`;
     });
 
