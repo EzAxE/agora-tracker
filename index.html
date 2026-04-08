@@ -198,10 +198,15 @@
 
         /* Stats */
         .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            display: flex;
+            justify-content: center;
             gap: 5px;
             padding: 4px 16px 4px;
+        }
+
+        .stats-row .stat {
+            flex: 1;
+            max-width: 100px;
         }
 
         .stat {
@@ -1060,7 +1065,7 @@ function switchTab(tab) {
     document.getElementById('pageHabits').classList.toggle('active', tab === 'habits');
     document.getElementById('pageTodo').classList.toggle('active', tab === 'todo');
     document.getElementById('daysNav').style.display = tab === 'habits' ? 'flex' : 'none';
-    document.getElementById('statsRow').style.display = tab === 'habits' ? 'grid' : 'none';
+    document.getElementById('statsRow').style.display = tab === 'habits' ? 'flex' : 'none';
 }
 
 // =============================================
