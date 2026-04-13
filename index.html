@@ -1053,6 +1053,7 @@ function startEmpty() {
 function showApp() {
     document.getElementById('onboarding').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
+    renderAuthBar();
     renderAll();
 }
 
@@ -1652,23 +1653,33 @@ function renderAll() {
 // INIT
 // =============================================
 async function init() {
-    // Check existing session
-    const { data: { session } } = await sb.auth.getSession();
-    if (session?.user) {
-        currentUser = session.user;
+    // Check existing session — try/catch pour que renderAuthBar() soit TOUJOURS appelé
+    try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (session?.user) {
+            currentUser = session.user;
+        }
+    } catch (e) {
+        console.warn('Session check failed:', e);
+        currentUser = null;
     }
+
     renderAuthBar();
 
     if (store.get('onboarded', false)) {
         showApp();
         if (currentUser) {
-            await syncFromCloud();
+            try {
+                await syncFromCloud();
+            } catch (e) {
+                console.warn('Sync failed:', e);
+            }
             renderAll();
         }
     }
 }
 
-init();
+init().catch(e => console.warn('Init error:', e));
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
