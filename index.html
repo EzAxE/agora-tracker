@@ -1666,7 +1666,9 @@ async function init() {
 
     renderAuthBar();
 
-    if (store.get('onboarded', false)) {
+    // Si connecté OU déjà onboardé → direct dans l'app
+    if (currentUser || store.get('onboarded', false)) {
+        if (currentUser) store.set('onboarded', true);
         showApp();
         if (currentUser) {
             try {
